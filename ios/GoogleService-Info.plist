@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>964070907847-2q0rpg2idverooqctv9haer74hpi5r6f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.964070907847-2q0rpg2idverooqctv9haer74hpi5r6f</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDQmWWknjeOZhmW7RVYUifj8lJbrHmW4PA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>964070907847</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sognishop</string>
+	<key>PROJECT_ID</key>
+	<string>confusion-20fec</string>
+	<key>STORAGE_BUCKET</key>
+	<string>confusion-20fec.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:964070907847:ios:ab341380bf9c7e453103e2</string>
+</dict>
+</plist>
