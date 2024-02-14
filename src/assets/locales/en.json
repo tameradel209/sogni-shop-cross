@@ -1,0 +1,74 @@
+{
+  "common": {
+    "english": "English",
+    "arabic": "عربى",
+    "welcome": "Welcome",
+    "signout": "Logout",
+    "search": "Search Sogni Shop"
+  },
+  "signin": {
+    "header": "Sign In For Best Shopping Experience",
+    "email": "Email",
+    "enterEmail": "Enter Your Email",
+    "password": "Password",
+    "enterPassword": "Enter Your Password",
+    "forgetPassword": "Forget Password?",
+    "keepSignin": " Keep Me Sign In",
+    "signin": "Sign In",
+    "haveNoAccount": "Don't Have An Account? ",
+    "signup": "sign Up",
+    "doLater": "Do This Later"
+  },
+  "signup": {
+    "header": "Sign Up For Best Shopping Experience",
+    "fullName": "Full Name",
+    "enterFullName": "Enter Your Full Name",
+    "phoneNumber": "Phone Number",
+    "enterPhoneNumber": "Enter Your Phone Number",
+    "email": "Email",
+    "enterEmail": "Enter Your email",
+    "address": "Address",
+    "enterAddress": "Enter Your Your Address",
+    "password": "Password",
+    "enterPassword": "Enter Your Password",
+    "male": "Male",
+    "female": "Female",
+    "accept": "Accept",
+    "termsConditions": "Terms And Conditions?",
+    "signup": "Sign Up",
+    "haveAccount": "Have An Account?",
+    "signin": "Sign In"
+  },
+  "resetPassword": {
+    "header": "Reset Your Password",
+    "newPassword": "New password",
+    "enterPassword": "Enter Your New Password",
+    "enterPasswordAgain": "Enter Your New Password Again",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  },
+  "phoneCode": {
+    "header": "Verify Your Phone Number",
+    "title": "We Send A Message To",
+    "timerTitle": "Resend A Verification Code",
+    "verify": "Verify Your Phone",
+    "anotherPhone": "Enter Another Phone Number",
+    "goBack": "Go Back"
+  },
+  "forgetPassword": {
+    "header": "Enter Your Email To Reset Your Password",
+    "email": "Email",
+    "enterEmail": "Enter Your email",
+    "sendCode": "Send Verification Code",
+    "rememberPassword": "Do You Remember Your Password?",
+    "signin": "Sign In"
+  },
+  "emailCode": {
+    "header": "Verify Your Email",
+    "title": "We Send An Email To",
+    "timerTitle": "Resend A Verification Code",
+    "verify": "Verify Your Email",
+    "anotherEmail": "Enter Another Email",
+    "goBack": "Go Back"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "common": {
+    "english": "English",
+    "arabic": "عربى",
+    "welcome": "مرحبا",
+    "signout": "تسجيل الخروج",
+    "search": "بحث فى سوجني شوب"
+  },
+  "signin": {
+    "header": "قم بتسجيل الدخول للحصول على أفضل تجربة تسوق",
+    "email": "البريد الإلكتروني",
+    "enterEmail": "أدخل بريدك الإلكتروني",
+    "password": "كلمة المرور",
+    "enterPassword": "أدخل كلمة المرور",
+    "forgetPassword": "نسيت كلمة المرور؟",
+    "keepSignin": " الأحتفاظ بتسجيل الدخول",
+    "signin": "تسجيل الدخول",
+    "haveNoAccount": "ليس لديك حساب؟",
+    "signup": "عمل حساب",
+    "doLater": "عمل هذا لاحقا"
+  },
+  "signup": {
+    "header": "سجل حساب للحصول على أفضل تجربة تسوق",
+    "fullName": "الاسم كامل",
+    "enterFullName": "أدخل اسمك بالكامل",
+    "phoneNumber": "رقم الهاتف",
+    "enterPhoneNumber": "أدخل رقم هاتفك",
+    "email": "البريد الإلكتروني",
+    "enterEmail": "أدخل بريدك الإلكتروني",
+    "address": "العنوان",
+    "enterAddress": "أدخل عنوانك",
+    "password": "كلمة المرور",
+    "enterPassword": "أدخل كلمة المرور",
+    "male": "ذكر",
+    "female": "أنثى",
+    "accept": "قبول",
+    "termsConditions": "الأحكام والشروط؟",
+    "signup": "تسجيل",
+    "haveAccount": "لديك حساب؟ ",
+    "signin": "تسجيل الدخول"
+  },
+  "resetPassword": {
+    "header": "اعد ضبط كلمه السر",
+    "newPassword": "كلمة المرور الجديدة",
+    "enterPassword": "أدخل كلمة المرور الجديدة",
+    "enterPasswordAgain": "أدخل كلمة المرور الجديدة مرة أخرى",
+    "confirm": "تأكيد",
+    "cancel": "إلغاء"
+  },
+  "phoneCode": {
+    "header": "التحقق من رقم هاتفك",
+    "title": "أرسلنا رسالة إلى",
+    "timerTitle": "إعادة إرسال الكود",
+    "verify": "التحقق من هاتفك",
+    "anotherPhone": "أدخل رقم هاتف آخر",
+    "goBack": "رجوع الى الخلف"
+  },
+  "forgetPassword": {
+    "header": "أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك",
+    "email": "البريد الإلكتروني",
+    "enterEmail": "أدخل بريدك الإلكتروني",
+    "sendCode": "أرسل رمز التحقق",
+    "rememberPassword": "هل تتذكر كلمة المرور الخاصة بك؟",
+    "signin": "تسجيل الدخول"
+  },
+  "emailCode": {
+    "header": "التحقق من بريدك الإلكتروني",
+    "title": "أرسلنا رسالة إلى",
+    "timerTitle": "إعادة إرسال الكود",
+    "verify": "التحقق من بريدك الإلكتروني",
+    "anotherEmail": "أدخل بريدك الكتروني آخر",
+    "goBack": "رجوع الى الخلف"
+  }
+}
