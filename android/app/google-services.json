@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "964070907847",
+    "project_id": "confusion-20fec",
+    "storage_bucket": "confusion-20fec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964070907847:android:50082b2b01eb0b6f3103e2",
+        "android_client_info": {
+          "package_name": "com.sognishop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "964070907847-e3bntkfplqfun5r5la8uasmt52qi4k7f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5NgfSlEs3j0YvLXQQ7XrrwshYmyShQVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "964070907847-e3bntkfplqfun5r5la8uasmt52qi4k7f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

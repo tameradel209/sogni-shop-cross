@@ -14,6 +14,7 @@ export const getStores = createAsyncThunk(
         return thunkAPI.fulfillWithValue(res?.data?.stores);
       })
       .catch(err => {
+        console.log('$$$$$$$$$', err);
         thunkAPI.dispatch(
           showHintMessage({
             title: 'getting stores Failed',
