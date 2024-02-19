@@ -21,6 +21,7 @@ export const getStores = createAsyncThunk(
             type: ERROR,
           }),
         );
+        console.log("err", err)
         Alert.alert(
           'We found a problem while getting stores',
           err?.response?.data?.name || err.message,

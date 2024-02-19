@@ -14,7 +14,7 @@ const navigationRef = createNavigationContainerRef();
 
 const RootNavigator = () => {
   const {userData} = useSelector((state: RootState) => state.authReducer);
-
+  useEffect(()=> console.log("user data:" , userData))
   return (
     <NavigationContainer ref={navigationRef}>
       {userData ? <MainStack /> : <AuthStack />}

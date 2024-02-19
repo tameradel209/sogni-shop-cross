@@ -4,13 +4,16 @@ import {MainStackParamList} from './types';
 import Map from '../../../screens/map';
 import BottomTabs from '../../bottom';
 import CategoryProducts from '../../../screens/categoryProducts';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
 const MainStack = () => {
+  const {userData} = useSelector((state:RootState) => state.authReducer)
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Map" component={Map} />
+      <Stack.Screen name="Map" component={userData.store ?BottomTabs: Map} />
       <Stack.Screen name="BottomTabs" component={BottomTabs} />
       <Stack.Screen name="CategoryProducts" component={CategoryProducts} />
     </Stack.Navigator>

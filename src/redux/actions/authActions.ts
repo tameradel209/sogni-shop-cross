@@ -16,7 +16,7 @@ export const signin = createAsyncThunk(
   (userCredintials: ISignin, thunkAPI) =>
     loginEP(userCredintials.data)
       .then(res => {
-        AsyncStorage.setItem('fcmToken', userCredintials?.data?.fcmTokenNew);
+        userCredintials?.data?.fcmTokenNew && AsyncStorage.setItem('fcmToken', userCredintials?.data?.fcmTokenNew);
         return thunkAPI.fulfillWithValue({
           data: res.data,
           keepMeSignIn: userCredintials.keepMeSignIn,

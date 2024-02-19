@@ -20,7 +20,7 @@ export const verifyAccountEP = (data: IVerifyAccountData) =>
   Axios('POST', '/users/verifyAccount', data);
 
 export const getStoresEP = (params: IStoresParams) =>
-  Axios('GET', '/stores/user', {}, params);
+  Axios('GET', '/stores/user', null, params);
 
 export const getMessagesEP = (store: string, page: number, size: number) =>
   Axios('GET', `/messages/${store}/page?page=${page}&size=${size}`);

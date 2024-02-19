@@ -1,6 +1,6 @@
 export type TMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 export type TUrl = string;
-export type TData = object;
+export type TData = object| null;
 export type TParams = object;
 export type TContentType = 'application/json' | 'multipart/form-data';
 
