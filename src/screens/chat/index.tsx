@@ -35,6 +35,7 @@ import {MESSAGE, GOTOMESSAGES} from '../../redux/constants';
 import {useNavigation} from '@react-navigation/native';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {BottomTabsParamList} from '../../navigation/bottom/types';
+import Back from '../../components/back';
 
 const socketServices = new SocketIO();
 
@@ -50,6 +51,9 @@ const Chat = props => {
   );
   const {storeSelected} = useSelector(
     (state: RootState) => state.storesReducer,
+  );
+  const {channelSelected} = useSelector(
+    (state: RootState) => state.channelsReducer,
   );
   const flatListRef = useRef<FlatList>();
 
@@ -109,8 +113,12 @@ const Chat = props => {
     setText('');
     const date = new Date();
     const messageData: IMessage = {
+      userId: userData.store ? storeSelected._id : userData._id,
+      storeId: userData.store ? userData._id : storeSelected._id,
       senderId: userData._id,
-      receiverId: storeSelected._id,
+      receiverId: userData.store
+        ? channelSelected?.user?._id
+        : storeSelected._id,
       message: text,
       type: 'TEXT',
       dateSent: date.toISOString(),
@@ -134,9 +142,18 @@ const Chat = props => {
       <Header
         height={Spacings.hSpace2}
         circleCount={Spacings.bigCircleCount + 2}>
-        <Text style={[Typography.header6, {color: Colors.white}]}>
-          {storeSelected.name}
-        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            flex: 1,
+          }}>
+          <Back color={Colors.secondary} />
+          <Text style={[Typography.header6, {color: Colors.white}]}>
+            {storeSelected.name}
+          </Text>
+          <View style={{width: Spacings.wSpace9}} />
+        </View>
       </Header>
       <View style={{flex: 1, backgroundColor: Colors.forth}}>
         <FlatList
@@ -163,6 +180,7 @@ const Chat = props => {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
+          marginBottom: Spacings.hSpace8,
         }}>
         <CustomInput
           placeholder="Write A Message"

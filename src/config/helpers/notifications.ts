@@ -7,21 +7,24 @@ import {editProfile} from '../../redux/actions/authActions';
 
 export const requestUserPermission = async () => {
   const authStatus = await messaging().requestPermission();
-  console.log(`+++++++++++++`, authStatus)
+  console.log(`+++++++++++++`, authStatus);
   const enabled =
     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
   if (enabled) {
     const fcmTokenOld = await AsyncStorage.getItem('fcmToken');
-    console.log(`eeeeeeeee`, messaging.AuthorizationStatus.AUTHORIZED)
-    const fcmTokenNew = await messaging().getToken().then(tok => {
-      console.log(`firebase messaging token`, tok)
-      return tok
-    }).catch(err => {
-      console.log(`firebase messaging token failed`, err.message)
-      return null
-    });
+    console.log(`eeeeeeeee`, messaging.AuthorizationStatus.AUTHORIZED);
+    const fcmTokenNew = await messaging()
+      .getToken()
+      .then(tok => {
+        console.log(`firebase messaging token`, tok);
+        return tok;
+      })
+      .catch(err => {
+        console.log(`firebase messaging token failed`, err.message);
+        return null;
+      });
     if (fcmTokenOld != fcmTokenNew) {
       store.dispatch(
         editProfile({
@@ -41,6 +44,7 @@ export const requestUserPermission = async () => {
 export const getFCMToken = () => {
   return AsyncStorage.getItem('fcmToken').then(fcmToken => {
     if (!fcmToken) {
+      console.log('fcm from async storage');
       return messaging().getToken();
     } else {
       return fcmToken;

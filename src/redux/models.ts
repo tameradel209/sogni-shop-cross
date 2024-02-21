@@ -26,6 +26,13 @@ export interface IStoreSlice {
   isLoadingStore: boolean;
   error: string | null;
 }
+export interface IChannelSlice {
+  channels: any[];
+  channelSelected: any;
+  isLoadingChannels: boolean;
+  isLoadingChannel: boolean;
+  error: string | null;
+}
 export interface ICategorySlice {
   categories: any[];
   category: any;

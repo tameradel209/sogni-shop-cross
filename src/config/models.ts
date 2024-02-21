@@ -1,6 +1,6 @@
 export type TMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 export type TUrl = string;
-export type TData = object| null;
+export type TData = object | null;
 export type TParams = object;
 export type TContentType = 'application/json' | 'multipart/form-data';
 
@@ -21,6 +21,7 @@ export interface IStoresParams {
   latitude: number;
   longitude: number;
 }
+
 export interface IVerifyAccountData {
   code: string;
   username: string;
@@ -28,6 +29,8 @@ export interface IVerifyAccountData {
 
 export type TMessage = 'TEXT' | 'IMAGE' | 'VIDEO' | 'AUDIO' | 'FILE';
 export interface IMessage {
+  userId: string;
+  storeId: string;
   id: string;
   receiverId: string;
   senderId: string;

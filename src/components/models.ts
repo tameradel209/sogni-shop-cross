@@ -29,6 +29,7 @@ export interface ICustomInputProps {
   errorMessage?: string | null;
   height?: number | null;
   children?: ReactNode;
+  isBack?:boolean
 }
 
 export interface ICodeVerification {

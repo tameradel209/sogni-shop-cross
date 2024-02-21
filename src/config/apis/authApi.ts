@@ -3,6 +3,7 @@ import {
   ILoginData,
   IRegistrationData,
   IStoresParams,
+  IChannelsParams,
   IVerifyAccountData,
 } from '../models';
 import {IEditProfile} from '../../redux/models';
@@ -21,6 +22,9 @@ export const verifyAccountEP = (data: IVerifyAccountData) =>
 
 export const getStoresEP = (params: IStoresParams) =>
   Axios('GET', '/stores/user', null, params);
+
+export const getChannelsEP = () =>
+  Axios('GET', '/channels');
 
 export const getMessagesEP = (store: string, page: number, size: number) =>
   Axios('GET', `/messages/${store}/page?page=${page}&size=${size}`);

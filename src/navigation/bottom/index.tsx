@@ -17,6 +17,7 @@ import {RootState, store} from '../../redux/store';
 import {clearChat} from '../../redux/slices/chatSlice';
 import {getMessages} from '../../redux/actions/chatActions';
 import {BottomTabsParamList} from './types';
+import Channels from '../../screens/channels';
 
 const MyTabBar = ({state, descriptors, navigation}) => {
   return (
@@ -150,7 +151,7 @@ const BottomTabs = () => {
       <Tab.Screen name="Bascket" component={Bascket} />
       <Tab.Screen name="Categories" component={Categories} />
       <Tab.Screen name="Home" component={Home} />
-      {userData ? (
+      {userData.store ? (
         <Tab.Screen
           // listeners={{
           //   tabPress: e => {
@@ -162,10 +163,23 @@ const BottomTabs = () => {
           //     dispatch(getMessages(null));
           //   },
           // }}
-          name="Chat"
-          component={Chat}
+          name="Channels"
+          component={Channels}
         />
-      ) : null}
+      ) :         <Tab.Screen
+      // listeners={{
+      //   tabPress: e => {
+      //     //e.preventDefault();
+      //     chat.length > 0
+      //       ? flatListRef.current?.scrollToIndex({animated: true, index: 0})
+      //       : null;
+      //     dispatch(clearChat(null));
+      //     dispatch(getMessages(null));
+      //   },
+      // }}
+      name="Chat"
+      component={Chat}
+    />}
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );

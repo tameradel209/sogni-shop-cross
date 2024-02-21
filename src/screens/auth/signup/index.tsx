@@ -29,8 +29,8 @@ import Animated, {
 import {signup} from '../../../redux/actions/authActions';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {getFCMToken} from '../../../config/helpers/notifications';
-import NetInfo from '@react-native-community/netinfo'
-import { setIsLoading } from '../../../redux/slices/authSlice';
+import NetInfo from '@react-native-community/netinfo';
+import {setIsLoading} from '../../../redux/slices/authSlice';
 
 const Signup = () => {
   const [eyeShow, setEyeShow] = useState<boolean>(true);
@@ -78,8 +78,9 @@ const Signup = () => {
       isAddress &&
       termsConditions
     ) {
-      NetInfo.fetch().then(async state =>  {
-        if(state.isConnected){
+      NetInfo.fetch().then(async state => {
+        console.log('entered signup', state.isConnected);
+        if (state.isConnected) {
           const fcmToken = await getFCMToken();
           dispatch(
             signup({
@@ -101,11 +102,22 @@ const Signup = () => {
               toVerifyUser: () => navigation.navigate('EmailVerification'),
             }),
           );
-        }else{
-          Alert.alert('Conncetion Error', 'You Are Not Connected To The Internet')
+        } else {
+          Alert.alert(
+            'Conncetion Error',
+            'You Are Not Connected To The Internet',
+          );
         }
-      })
+      });
     } else {
+      console.log(
+        'there is error sign up',
+        isUsernameValid,
+        isPasswordValid,
+        isFullName,
+        isAddress,
+        termsConditions,
+      );
       ErrorAnimation(translateX);
       const options = {
         enableVibrateFallback: true,
@@ -121,9 +133,9 @@ const Signup = () => {
     };
   }, []);
 
-  useEffect(() =>{
-    isLoading ? dispatch(setIsLoading(false)):null
-  }, [])
+  useEffect(() => {
+    isLoading ? dispatch(setIsLoading(false)) : null;
+  }, []);
 
   return (
     <AuthView>
@@ -241,7 +253,12 @@ const Signup = () => {
         </Pressable>
       </View>
 
-      <View style={[styles.checkContainer, {flexDirection: 'row'}]}>
+      <Animated.View
+        style={[
+          styles.checkContainer,
+          {flexDirection: 'row'},
+          termsConditions ? null : errorStyle,
+        ]}>
         <MaterialCommunityIcons
           name={termsConditions ? 'check-decagram' : 'check-decagram-outline'}
           color={termsConditions ? Colors.third : Colors.forth}
@@ -258,9 +275,10 @@ const Signup = () => {
             {t('signup.termsConditions')}
           </Text>
         </Pressable>
-      </View>
+      </Animated.View>
 
-      <Animated.View style={[styles.margin, errorStyle]}>
+      <Animated.View
+        style={[styles.margin, termsConditions ? errorStyle : null]}>
         <CustomButton
           onPress={onSignUp}
           circleCount={Spacings.smallCircleCount}

@@ -1,11 +1,12 @@
 import axios, {Method} from 'axios';
 import {store} from '../../redux/store';
 import {TMethod, TContentType, TData, TParams, TUrl} from '../models';
+import { Platform } from 'react-native';
 
 //export const baseUrl = 'http://10.0.2.2:3000';
-//export const baseUrl = 'http://localhost:3000';
+export const baseUrl = Platform.OS == 'android' ?'http://10.0.2.2:3000':'http://localhost:3000';
 //export const baseUrl = 'https://sogni-shop.herokuapp.com';
-export const baseUrl = 'https://sogni-shop-backend.onrender.com';
+//export const baseUrl = 'https://sogni-shop-backend.onrender.com';
 export const version = '/api/v1';
 const axiosInstance = axios.create({
   baseURL: baseUrl + version,

@@ -9,9 +9,16 @@ export const getMessages = createAsyncThunk(
   (data: null, thunkAPI) => {
     const {page, size, isLast} = store.getState().chatReducer;
     const {storeSelected} = store.getState().storesReducer;
+    const {channelSelected} = store.getState().channelsReducer;
+    const {userData} = store.getState().authReducer;
+
     console.log('getting messages', isLast, storeSelected._id);
     return !isLast
-      ? getMessagesEP(storeSelected._id, page, size)
+      ? getMessagesEP(
+          userData.store ? channelSelected?.user?._id : storeSelected._id,
+          page,
+          size,
+        )
           .then(res => {
             console.log('getting messages', res?.data);
             return thunkAPI.fulfillWithValue(res?.data);

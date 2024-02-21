@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Text, View, Pressable, TouchableOpacity, TextInput} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -13,6 +13,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 const Header = (props: ICustomInputProps) => {
   const {circleCount, children, isBack} = props;
   const {t} = useTranslation();
+  useEffect(()=> console.log('isBack', isBack), [])
+  
   return (
     <SafeAreaView
       style={{
