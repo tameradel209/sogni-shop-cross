@@ -16,6 +16,7 @@ import SplashScreen from 'react-native-splash-screen';
 import SocketIO from '../config/socket';
 import {addMessageReceived} from './slices/chatSlice';
 import {IMessage} from '../config/models';
+import {getChannels} from './actions/channelsActions';
 
 const persistConfig = {
   key: 'root',
@@ -39,13 +40,14 @@ export type RootState = ReturnType<typeof store.getState>;
 
 export const socketConnection = () => {
   const {userData} = store.getState().authReducer;
-  const {chat} = store.getState().chatReducer;
+  const {chat, channelId} = store.getState().chatReducer;
   if (userData) {
     const socketServices = new SocketIO();
     socketServices.socket.on('connect', () => {
-      chat.forEach((msg: IMessage) => {
-        msg?._id ? null : socketServices.socket.emit('chat_message', msg);
-      });
+      channelId &&
+        chat[channelId].forEach((msg: IMessage) => {
+          msg?._id ? null : socketServices.socket.emit('chat_message', msg);
+        });
       console.log(
         'socket connected from store',
         socketServices.socket.connected,
@@ -54,6 +56,7 @@ export const socketConnection = () => {
     });
     socketServices.socket.on('chat_message', (msg: any) => {
       console.log('msg---- from store', msg);
+      userData.store && store.dispatch(getChannels(null));
       if (msg?.status == 1 && msg?.senderId != userData?._id) {
         console.log('received from store');
         socketServices.socket.emit('chat_message', {...msg, status: 2});

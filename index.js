@@ -14,7 +14,7 @@ const socketServices = new SocketIO();
 const {userData} = store.getState().authReducer;
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
-  const message = JSON.parse(remoteMessage.data?.msg);
+  const message = JSON.parse(remoteMessage.data?.res);
   if (message?.status == 1 && message?.senderId != userData?._id) {
     console.log('received from index');
     socketServices.socket.emit('chat_message', {...message, status: 2});

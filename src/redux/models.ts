@@ -10,7 +10,8 @@ export interface IAuthSlice {
   keepMeSignIn: boolean;
 }
 export interface IChatSlice {
-  chat: any[];
+  chat: {};
+  channelId?: string | null;
   page: number;
   size: number;
   isLast: boolean;

@@ -46,7 +46,7 @@ const Chat = props => {
   const navigation = useNavigation<BottomTabScreenProps<BottomTabsParamList>>();
   const {t, i18n} = useTranslation();
   const {userData} = useSelector((state: RootState) => state.authReducer);
-  const {chat, isLast, isLoading, size} = useSelector(
+  const {chat, channelId, isLast, isLoading, size} = useSelector(
     (state: RootState) => state.chatReducer,
   );
   const {storeSelected} = useSelector(
@@ -56,16 +56,18 @@ const Chat = props => {
     (state: RootState) => state.channelsReducer,
   );
   const flatListRef = useRef<FlatList>();
-
+  console.log('here you go', channelId);
   const fetchMessages = () =>
-    isLast || chat.length < size ? null : dispatch(getMessages(null));
+    isLast || chat[channelId]?.length < size
+      ? null
+      : dispatch(getMessages(null));
 
   useEffect(() => {
     console.log('hihihhi');
     dispatch(clearChat(null));
     dispatch(getMessages(null));
     socketServices.socket.on('connect', () => {
-      chat.forEach((msg: IMessage) => {
+      chat[channelId]?.forEach((msg: IMessage) => {
         console.log('id@@@@', msg._id);
         msg?._id ? null : socketServices.socket.emit('chat_message', msg);
       });
@@ -109,16 +111,14 @@ const Chat = props => {
   }, []); */
 
   const onSend = () => {
-    console.log('selected=-=-=', userData);
+    console.log('selected=-=-=', storeSelected, channelSelected?.user);
     setText('');
     const date = new Date();
     const messageData: IMessage = {
-      userId: userData.store ? storeSelected._id : userData._id,
+      userId: userData.store ? channelSelected.user._id : userData._id,
       storeId: userData.store ? userData._id : storeSelected._id,
       senderId: userData._id,
-      receiverId: userData.store
-        ? channelSelected?.user?._id
-        : storeSelected._id,
+      receiverId: userData.store ? channelSelected.user._id : storeSelected._id,
       message: text,
       type: 'TEXT',
       dateSent: date.toISOString(),
@@ -150,7 +150,9 @@ const Chat = props => {
           }}>
           <Back color={Colors.secondary} />
           <Text style={[Typography.header6, {color: Colors.white}]}>
-            {storeSelected.name}
+            {userData.store
+              ? channelSelected?.user?.fullname
+              : storeSelected?.name}
           </Text>
           <View style={{width: Spacings.wSpace9}} />
         </View>
@@ -158,7 +160,7 @@ const Chat = props => {
       <View style={{flex: 1, backgroundColor: Colors.forth}}>
         <FlatList
           ref={flatListRef}
-          data={chat}
+          data={chat[channelId]}
           renderItem={renderMessages}
           keyExtractor={keyExtractor}
           inverted

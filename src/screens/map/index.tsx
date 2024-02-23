@@ -31,6 +31,7 @@ import {RootState, store} from '../../redux/store';
 import {chooseStore} from '../../redux/slices/storesSlice';
 import styles from './styles';
 import CustomActivityIndicator from '../../components/activityIndication';
+import {addChannelToChat} from '../../redux/slices/chatSlice';
 
 const ASPECT_RATIO = width / height;
 const LAT_DELTA = 0.155 * ASPECT_RATIO;
@@ -160,7 +161,9 @@ const Map = () => {
                   title={marker?.title}
                   description={marker?.description}
                   onPress={() => {
+                    console.log('store in the map', marker);
                     dispatch(chooseStore(marker));
+                    dispatch(addChannelToChat(marker._id));
                     navigation.navigate(
                       userData ? 'BottomTabs' : 'BottomTabsForAuth',
                     );

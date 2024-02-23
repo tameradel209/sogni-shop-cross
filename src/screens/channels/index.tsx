@@ -18,6 +18,7 @@ import SocketIO from '../../config/socket';
 import {getMessages} from '../../redux/actions/chatActions';
 import Header from '../../components/header';
 import {
+  addChannelToChat,
   addMessage,
   addMessageReceived,
   clearChat,
@@ -76,6 +77,7 @@ const Channels = props => {
       <TouchableOpacity
         onPress={() => {
           dispatch(chooseChannel(item));
+          dispatch(addChannelToChat(item._id));
           navigation.navigate('Chat');
         }}>
         <View style={styles.main}>
