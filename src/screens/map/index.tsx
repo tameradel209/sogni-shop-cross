@@ -14,11 +14,7 @@ import {
 } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 import Geolocation from '@react-native-community/geolocation';
-import {
-  height,
-  width,
-  GOOGLE_MAPS_APIKEY,
-} from '../../config/helpers/thresholds';
+import {height, width} from '../../config/helpers/thresholds';
 import axios from 'axios';
 import MapSearch from '../../components/MapSearch';
 import {Colors, Typography} from '../../common/foundation';
@@ -38,6 +34,7 @@ const LAT_DELTA = 0.155 * ASPECT_RATIO;
 const LON_DELTA = 0.155 * ASPECT_RATIO;
 
 const Map = () => {
+  console.log('rendering from Map');
   const {userData} = useSelector((state: RootState) => state.authReducer);
   const dispatch = useDispatch<typeof store.dispatch>();
   const ref = useRef<TextInputProps>(null);
@@ -70,7 +67,7 @@ const Map = () => {
           }),
         );
         console.log('location', info);
-        Geocoder.init(GOOGLE_MAPS_APIKEY);
+        Geocoder.init(process.env.GOOGLE_MAPS_APIKEY);
         let json = await Geocoder.from(
           info.coords.latitude,
           info.coords.longitude,
@@ -101,12 +98,13 @@ const Map = () => {
   };
 
   const search = (location, details = null) => {
+    console.log('searching map', location);
     axios
       .get(
         'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +
           location.place_id +
           '&key=' +
-          GOOGLE_MAPS_APIKEY,
+          process.env.GOOGLE_MAPS_APIKEY,
       )
       .then(data => {
         setLocationUser({

@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import styles from './styles';
 import {Colors, Spacings} from '../../common/foundation';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-import {GOOGLE_MAPS_APIKEY} from '../../config/helpers/thresholds';
 import Zigzag from '../../common/zigzag';
 import {TextInput} from 'react-native-gesture-handler';
 import i18n from '../../../i18next';
@@ -57,7 +56,7 @@ const MapSearch = (
         styles={searchInputStyle}
         onPress={searchHandler}
         query={{
-          key: GOOGLE_MAPS_APIKEY,
+          key: process.env.GOOGLE_MAPS_APIKEY,
           language: i18n.language,
         }}
         placeholder={'Search places'}
