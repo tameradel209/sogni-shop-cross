@@ -124,12 +124,6 @@ const Map = () => {
   };
 
   const onRegionChangeComplete = (e: any) => {
-    setRegion({
-      latitude: e.latitude,
-      longitude: e.longitude,
-      latitudeDelta: e.latitudeDelta,
-      longitudeDelta: e.longitudeDelta,
-    });
     if (e.latitude != region.latitude && e.longitude != region.longitude) {
       setIsSelectedNewLocation(true);
     }
