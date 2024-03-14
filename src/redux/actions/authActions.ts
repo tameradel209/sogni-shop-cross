@@ -16,7 +16,8 @@ export const signin = createAsyncThunk(
   (userCredintials: ISignin, thunkAPI) =>
     loginEP(userCredintials.data)
       .then(res => {
-        userCredintials?.data?.fcmTokenNew && AsyncStorage.setItem('fcmToken', userCredintials?.data?.fcmTokenNew);
+        userCredintials?.data?.fcmTokenNew &&
+          AsyncStorage.setItem('fcmToken', userCredintials?.data?.fcmTokenNew);
         return thunkAPI.fulfillWithValue({
           data: res.data,
           keepMeSignIn: userCredintials.keepMeSignIn,
@@ -91,12 +92,14 @@ export const signup = createAsyncThunk(
 
 export const verifyAccount = createAsyncThunk(
   'users/verifyAccount',
-  (userCredintials: IVerifyAccount, thunkAPI) =>
+  (userCredintials: IVerifyAccount, thunkAPI) => {
+    console.log('from verify');
     verifyAccountEP({
       code: userCredintials.code,
       username: store.getState().authReducer?.credintials?.username,
     })
       .then(res => {
+        console.log('from the slice', res?.data);
         thunkAPI.dispatch(
           showHintMessage({
             title: 'Registration success',
@@ -116,11 +119,12 @@ export const verifyAccount = createAsyncThunk(
         userCredintials.callback();
         thunkAPI.dispatch(
           showHintMessage({
-            title: 'Registration Failed',
+            title: 'Registration Failed ',
             body: err?.response?.data?.error_message || err.message,
             type: ERROR,
           }),
         );
         return thunkAPI.rejectWithValue(err.message);
-      }),
+      });
+  },
 );

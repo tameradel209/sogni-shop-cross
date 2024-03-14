@@ -63,7 +63,7 @@ const Chat = props => {
       : dispatch(getMessages(null));
 
   useEffect(() => {
-    console.log('hihihhi');
+    console.log('socket connected from the chat');
     dispatch(clearChat(null));
     dispatch(getMessages(null));
     socketServices.socket.on('connect', () => {

@@ -14,13 +14,18 @@ const socketServices = new SocketIO();
 const {userData} = store.getState().authReducer;
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
-  const message = JSON.parse(remoteMessage.data?.res);
-  if (message?.status == 1 && message?.senderId != userData?._id) {
-    console.log('received from index');
-    socketServices.socket.emit('chat_message', {...message, status: 2});
+  console.log(typeof remoteMessage);
+  try {
+    const message = JSON.parse(remoteMessage?.data?.res);
+    if (message?.status == 1 && message?.senderId != userData?._id) {
+      console.log('received from index');
+      socketServices.socket.emit('chat_message', {...message, status: 2});
+    }
+    store.dispatch(addMessageReceived(message));
+    console.log('Message handled in the background!', remoteMessage);
+  } catch (err) {
+    console.log('notification', remoteMessage);
   }
-  store.dispatch(addMessageReceived(message));
-  console.log('Message handled in the background!', remoteMessage);
 });
 
 AppRegistry.registerComponent(appName, () => App);

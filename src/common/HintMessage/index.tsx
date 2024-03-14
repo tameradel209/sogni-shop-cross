@@ -21,6 +21,7 @@ import {ERROR, SUCCESS, MESSAGE, GOTOMESSAGES} from '../../redux/constants';
 import {useNavigation} from '@react-navigation/native';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {BottomTabsParamList} from '../../navigation/bottom/types';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 const HintMessage = () => {
   const {showHint, title, body, type, onPress} = useSelector(
     (state: RootState) => state.hintReducer,
@@ -29,7 +30,9 @@ const HintMessage = () => {
   const navigation = useNavigation<BottomTabScreenProps<BottomTabsParamList>>();
   const horizontalCount = Spacings.smallCircleCount * 0.5 + 1;
   const verticalCount = 3;
-  const top = Platform.OS == 'android' ? StatusBar.currentHeight ?? 20 : 20;
+  const insets = useSafeAreaInsets();
+  console.log('IOS ', insets);
+  const top = (StatusBar.currentHeight || insets.top) * 1.5;
   const translateY = useSharedValue(-Spacings.hSpace1);
   useEffect(() => {
     if (showHint) {
@@ -76,6 +79,7 @@ const HintMessage = () => {
       <Animated.View
         style={[
           {
+            top: -top * 0.3,
             alignSelf: 'center',
             position: 'absolute',
             width: horizontalCount * Spacings.circleSmallSize,

@@ -39,6 +39,7 @@ setupListeners(store.dispatch);
 export type RootState = ReturnType<typeof store.getState>;
 
 export const socketConnection = () => {
+  console.log('connection to the socket called oh');
   const {userData} = store.getState().authReducer;
   const {chat, channelId} = store.getState().chatReducer;
   if (userData) {

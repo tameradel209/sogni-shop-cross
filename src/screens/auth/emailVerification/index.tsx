@@ -7,7 +7,7 @@ import {toDoAsync} from '../logic';
 import CodeVerification from '../../../components/codeVerification';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {AuthStackParamList} from '../../../navigation/stack/authStack/types';
-import {RootState} from '../../../redux/store';
+import {RootState, store} from '../../../redux/store';
 import {signup, verifyAccount} from '../../../redux/actions/authActions';
 import {ErrorAnimation} from '../../../common/functions';
 import {useAnimatedStyle, useSharedValue} from 'react-native-reanimated';
@@ -21,7 +21,7 @@ const EmailVerification = () => {
     (state: RootState) => state.authReducer,
   );
   const codeRef = useRef<TextInput[]>([]);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<typeof store.dispatch>();
   const {t} = useTranslation();
   const translateX = useSharedValue(0);
 
@@ -64,6 +64,7 @@ const EmailVerification = () => {
   };
 
   const onVerify = () => {
+    console.log('i entered on verify', code.join(''));
     dispatch(
       verifyAccount({
         code: code.join(''),

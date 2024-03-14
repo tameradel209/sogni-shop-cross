@@ -35,8 +35,8 @@ export const authSlice = createSlice({
       state.keepMeSignIn = false;
     },
     setIsLoading: (state, action) => {
-      state.isLoading = action.payload
-    }
+      state.isLoading = action.payload;
+    },
   },
   extraReducers: {
     [signin.pending]: (state: IAuthSlice) => {
@@ -120,7 +120,7 @@ export const authSlice = createSlice({
       });
     },
     [verifyAccount.rejected]: (state: IAuthSlice) => {
-      console.log('registration failed');
+      console.log('registration failed from verifyAccount.rejected');
       state.isLoadingCode = false;
     },
   },

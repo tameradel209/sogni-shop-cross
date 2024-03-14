@@ -44,7 +44,6 @@ const Map = () => {
   const {stores, isLoadingStores} = useSelector(
     (state: RootState) => state.storesReducer,
   );
-  const [isSelectedNewLocation, setIsSelectedNewLocation] = useState(false);
   const [region, setRegion] = useState({
     latitude: 24.77154271444637,
     longitude: 46.67404890403617,
@@ -68,15 +67,6 @@ const Map = () => {
         );
         console.log('location', info);
         Geocoder.init(process.env.GOOGLE_MAPS_APIKEY);
-        let json = await Geocoder.from(
-          info.coords.latitude,
-          info.coords.longitude,
-        );
-        setLocationUser({
-          latitude: Math.round(info.coords.latitude * 100) / 100,
-          longitude: Math.round(info.coords.longitude * 100) / 100,
-          address: json.results[0].formatted_address,
-        });
 
         setRegion({
           latitude: parseFloat(Math.round(info.coords.latitude * 100) / 100),
@@ -107,12 +97,6 @@ const Map = () => {
           process.env.GOOGLE_MAPS_APIKEY,
       )
       .then(data => {
-        setLocationUser({
-          address: data.data.result.formatted_address,
-          latitude: data.data.result.geometry.location.lat,
-          longitude: data.data.result.geometry.location.lng,
-        });
-
         setRegion({
           latitude: data.data.result.geometry.location.lat,
           longitude: data.data.result.geometry.location.lng,
@@ -123,11 +107,6 @@ const Map = () => {
       });
   };
 
-  const onRegionChangeComplete = (e: any) => {
-    if (e.latitude != region.latitude && e.longitude != region.longitude) {
-      setIsSelectedNewLocation(true);
-    }
-  };
   return (
     <TouchableWithoutFeedback
       disabled={!ref.current?.isFocused()}
@@ -143,7 +122,6 @@ const Map = () => {
           scrollEnabled
           style={{flex: 1}}
           region={region}
-          onRegionChangeComplete={onRegionChangeComplete}
           showsUserLocation={true}>
           {stores.length > 0
             ? stores.map((marker, index) => (

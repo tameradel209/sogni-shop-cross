@@ -46,9 +46,8 @@ export const getFCMToken = () => {
     if (!fcmToken) {
       console.log('fcm from async storage');
       return messaging().getToken();
-    } else {
-      return fcmToken;
     }
+    return fcmToken;
   });
 };
 

@@ -16,7 +16,7 @@ export const imediateSlice = createSlice({
   initialState,
   reducers: {
     setWidthThreshold: (state, action) => {
-      console.log(action.payload);
+      console.log('imediateSlice', action.payload);
       state.widthSmallThreshold = getWidthThreshold(action.payload.value1);
       state.widthBigThreshold = getWidthThreshold(action.payload.value2);
     },
