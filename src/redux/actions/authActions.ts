@@ -13,8 +13,9 @@ import {store} from '../store';
 
 export const signin = createAsyncThunk(
   'users/signin',
-  (userCredintials: ISignin, thunkAPI) =>
-    loginEP(userCredintials.data)
+  (userCredintials: ISignin, thunkAPI) => {
+    console.log('start login', userCredintials);
+    return loginEP(userCredintials.data)
       .then(res => {
         userCredintials?.data?.fcmTokenNew &&
           AsyncStorage.setItem('fcmToken', userCredintials?.data?.fcmTokenNew);
@@ -34,7 +35,8 @@ export const signin = createAsyncThunk(
           }),
         );
         return thunkAPI.rejectWithValue(err.message);
-      }),
+      });
+  },
 );
 
 export const editProfile = createAsyncThunk(
@@ -77,7 +79,7 @@ export const signup = createAsyncThunk(
         });
       })
       .catch(err => {
-        console.log('Registration Failed', err?.response?.data);
+        console.log('Registration Failed 1', err?.response?.data);
         userCredintials.callback();
         thunkAPI.dispatch(
           showHintMessage({

@@ -39,6 +39,7 @@ setupListeners(store.dispatch);
 export type RootState = ReturnType<typeof store.getState>;
 
 export const socketConnection = () => {
+  SplashScreen.hide();
   console.log('connection to the socket called oh');
   const {userData} = store.getState().authReducer;
   const {chat, channelId} = store.getState().chatReducer;
@@ -65,7 +66,6 @@ export const socketConnection = () => {
       store.dispatch(addMessageReceived(msg));
     });
   }
-  SplashScreen.hide();
 };
 
 export const persistor = persistStore(store, null, socketConnection);

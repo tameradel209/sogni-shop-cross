@@ -21,17 +21,6 @@ const Axios = (
   params?: TParams,
   contentType?: TContentType,
 ) => {
-  console.log(
-    'AXIOS: ',
-    'method ',
-    method,
-    'url ',
-    url,
-    'data ',
-    data,
-    'params ',
-    params,
-  );
   const userToken =
     url === '/users/signin' ||
     url === '/users/signup' ||

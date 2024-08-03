@@ -16,7 +16,13 @@ const TextMessage = ({item, index}) => {
   const dispatch = useDispatch();
   const focused = useIsFocused();
   useEffect(() => {
-    if (focused && item?.senderId != userData?._id && item?.status != 3) {
+    console.log('is I am focused item?.background', item?.background);
+    if (
+      !item?.background &&
+      focused &&
+      item?.senderId != userData?._id &&
+      item?.status != 3
+    ) {
       socketServices.socket.emit('chat_message', {...item, status: 3});
     }
   }, [focused]);

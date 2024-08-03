@@ -13,11 +13,13 @@ import {
   requestUserPermission,
 } from './src/config/helpers/notifications';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import SplashScreen from 'react-native-splash-screen';
 
 const App = () => {
   useEffect(() => {
     requestUserPermission();
     notificationListner();
+    SplashScreen.hide();
   }, []);
 
   return (

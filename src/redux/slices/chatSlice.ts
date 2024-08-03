@@ -25,6 +25,7 @@ export const chatSlice = createSlice({
       state.chat[state.channelId]?.unshift(action.payload);
     },
     addMessageReceived: (state, action) => {
+      console.log('message from background', action.payload);
       if (!state.channelId) {
         state.channelId = action.payload?.userId;
         state.chat[state.channelId] = [];

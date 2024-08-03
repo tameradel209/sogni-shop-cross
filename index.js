@@ -21,7 +21,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
       console.log('received from index');
       socketServices.socket.emit('chat_message', {...message, status: 2});
     }
-    store.dispatch(addMessageReceived(message));
+    store.dispatch(addMessageReceived({...message, background: true}));
     console.log('Message handled in the background!', remoteMessage);
   } catch (err) {
     console.log('notification', remoteMessage);

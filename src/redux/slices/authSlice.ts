@@ -88,7 +88,7 @@ export const authSlice = createSlice({
       state.isLoading = false;
     },
     [signup.rejected]: (state: IAuthSlice) => {
-      console.log('registration failed');
+      console.log('registration failed 2');
       state.isLoading = false;
     },
     [verifyAccount.pending]: (state: IAuthSlice) => {

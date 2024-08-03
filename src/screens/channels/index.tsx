@@ -48,6 +48,7 @@ const Channels = props => {
   const {channels, isLoadingChannels} = useSelector(
     (state: RootState) => state.channelsReducer,
   );
+  const {channelId} = useSelector((state: RootState) => state.chatReducer);
   const flatListRef = useRef<FlatList>();
   /*   const channels = [
     {
@@ -76,8 +77,12 @@ const Channels = props => {
     return (
       <TouchableOpacity
         onPress={() => {
-          dispatch(chooseChannel(item));
-          dispatch(addChannelToChat(item._id));
+          if (channelId != item._id) {
+            console.log('we entered channelId', channelId, ' ', item._id);
+            dispatch(chooseChannel(item));
+            dispatch(addChannelToChat(item._id));
+            return navigation.navigate('Chat', {fire: true});
+          }
           navigation.navigate('Chat');
         }}>
         <View style={styles.main}>

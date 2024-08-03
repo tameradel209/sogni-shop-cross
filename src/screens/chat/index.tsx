@@ -32,14 +32,13 @@ import {height} from '../../config/helpers/thresholds';
 import messaging from '@react-native-firebase/messaging';
 import {showHintMessage} from '../../redux/slices/hintMessage';
 import {MESSAGE, GOTOMESSAGES} from '../../redux/constants';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {BottomTabsParamList} from '../../navigation/bottom/types';
 import Back from '../../components/back';
-
 const socketServices = new SocketIO();
 
-const Chat = props => {
+const Chat = ({props, route}) => {
   const [text, setText] = useState('');
   const [showGoDown, setShowGoDown] = useState(false);
   const dispatch = useDispatch<typeof store.dispatch>();
@@ -62,24 +61,31 @@ const Chat = props => {
       ? null
       : dispatch(getMessages(null));
 
-  useEffect(() => {
-    console.log('socket connected from the chat');
-    dispatch(clearChat(null));
-    dispatch(getMessages(null));
-    socketServices.socket.on('connect', () => {
-      chat[channelId]?.forEach((msg: IMessage) => {
-        console.log('id@@@@', msg._id);
-        msg?._id ? null : socketServices.socket.emit('chat_message', msg);
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(clearChat(null));
+      dispatch(getMessages());
+      console.log('socket connected from the chat');
+
+      socketServices.socket.on('connect', () => {
+        chat[channelId]?.forEach((msg: IMessage) => {
+          console.log('id@@@@', msg._id);
+          msg?._id ? null : socketServices.socket.emit('chat_message', msg);
+        });
       });
-    });
-    socketServices.socket.on('chat_message', (msg: any) => {
-      if (msg?.status == 1 && msg?.senderId != userData?._id) {
-        console.log('received');
-        socketServices.socket.emit('chat_message', {...msg, status: 2});
-      }
-      dispatch(addMessageReceived(msg));
-    });
-  }, []);
+      socketServices.socket.on('chat_message', (msg: any) => {
+        if (msg?.status == 1 && msg?.senderId != userData?._id) {
+          console.log('received');
+          socketServices.socket.emit('chat_message', {...msg, status: 2});
+        }
+        dispatch(addMessageReceived(msg));
+      });
+
+      //return () => unsubscribe();
+    }, []),
+  );
+
+  useEffect(() => {}, [channelId]);
 
   /*   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
