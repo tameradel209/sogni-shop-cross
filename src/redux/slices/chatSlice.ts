@@ -49,23 +49,26 @@ export const chatSlice = createSlice({
       state.isLoading = false;
     },
   },
-  extraReducers: {
-    [getMessages.pending]: (state: IChatSlice) => {
-      state.isLoading = true;
-    },
-    [getMessages.fulfilled]: (state: IChatSlice, action) => {
-      console.log('fulfilled:', state.chat[state.channelId], state.channelId);
-      state.chat[state.channelId] = [
-        ...state.chat[state.channelId],
-        ...action.payload?.messages,
-      ];
-      state.page = action.payload?.pageNumber;
-      state.isLast = action.payload?.isLast;
-      state.isLoading = false;
-    },
-    [getMessages.rejected]: (state: IChatSlice) => {
-      state.isLoading = false;
-    },
+  extraReducers: builder => {
+    builder
+      .addCase(getMessages.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getMessages.fulfilled, (state, action) => {
+        console.log('fulfilled:', state.chat[state.channelId], state.channelId);
+        state.channelId
+          ? (state.chat[state.channelId] = [
+              ...state.chat[state.channelId],
+              ...action.payload?.messages,
+            ])
+          : null;
+        state.page = action.payload?.pageNumber;
+        state.isLast = action.payload?.isLast;
+        state.isLoading = false;
+      })
+      .addCase(getMessages.rejected, (state, action) => {
+        state.isLoading = false;
+      });
   },
 });
 

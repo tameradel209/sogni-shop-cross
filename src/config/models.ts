@@ -24,7 +24,7 @@ export interface IStoresParams {
 
 export interface IVerifyAccountData {
   code: string;
-  username: string;
+  username: string | undefined;
 }
 
 export type TMessage = 'TEXT' | 'IMAGE' | 'VIDEO' | 'AUDIO' | 'FILE';

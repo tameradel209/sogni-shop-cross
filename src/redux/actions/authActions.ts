@@ -11,6 +11,9 @@ import {IEditProfile, ISignin, ISignup, IVerifyAccount} from '../models';
 import {showHintMessage} from '../slices/hintMessage';
 import {store} from '../store';
 
+export const actionForTesting = credentials => {
+  return credentials;
+};
 export const signin = createAsyncThunk(
   'users/signin',
   (userCredintials: ISignin, thunkAPI) => {
@@ -96,7 +99,7 @@ export const verifyAccount = createAsyncThunk(
   'users/verifyAccount',
   (userCredintials: IVerifyAccount, thunkAPI) => {
     console.log('from verify');
-    verifyAccountEP({
+    return verifyAccountEP({
       code: userCredintials.code,
       username: store.getState().authReducer?.credintials?.username,
     })

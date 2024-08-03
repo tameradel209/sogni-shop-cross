@@ -17,17 +17,18 @@ export const categorySlice = createSlice({
       state.categories = action.payload;
     },
   },
-  extraReducers: {
-    [getCategories.pending]: (state: ICategorySlice) => {
-      state.isLoadingCategories = true;
-    },
-    [getCategories.fulfilled]: (state: ICategorySlice, action) => {
-      state.categories = action.payload;
-      state.isLoadingCategories = false;
-    },
-    [getCategories.rejected]: (state: ICategorySlice) => {
-      state.isLoadingCategories = false;
-    },
+  extraReducers: builder => {
+    builder
+      .addCase(getCategories.pending, (state, action) => {
+        state.isLoadingCategories = true;
+      })
+      .addCase(getCategories.fulfilled, (state, action) => {
+        state.categories = action.payload;
+        state.isLoadingCategories = false;
+      })
+      .addCase(getCategories.rejected, (state, action) => {
+        state.isLoadingCategories = false;
+      });
   },
 });
 

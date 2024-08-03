@@ -25,17 +25,17 @@ export interface IStoreSlice {
   storeSelected: any;
   isLoadingStores: boolean;
   isLoadingStore: boolean;
-  error: string | null;
+  error: any;
 }
 export interface IChannelSlice {
   channels: any[];
   channelSelected: any;
   isLoadingChannels: boolean;
   isLoadingChannel: boolean;
-  error: string | null;
+  error: string | any;
 }
 export interface ICategorySlice {
-  categories: any[];
+  categories: [] | undefined;
   category: any;
   isLoadingCategories: boolean;
   isLoadingCategory: boolean;

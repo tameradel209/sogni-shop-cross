@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, isPending} from '@reduxjs/toolkit';
 import SocketIO from '../../config/socket';
 import {
   editProfile,
@@ -38,91 +38,94 @@ export const authSlice = createSlice({
       state.isLoading = action.payload;
     },
   },
-  extraReducers: {
-    [signin.pending]: (state: IAuthSlice) => {
-      state.isLoading = true;
-    },
-    [signin.fulfilled]: (state: IAuthSlice, action) => {
-      state.userData = action.payload.data;
-      state.keepMeSignIn = action.payload.keepMeSignIn;
-      state.isLoading = false;
+  extraReducers: builder => {
+    builder
+      .addCase(signin.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(signin.fulfilled, (state, action) => {
+        state.userData = action.payload.data;
+        state.keepMeSignIn = action.payload.keepMeSignIn;
+        state.isLoading = false;
 
-      const socketServices = new SocketIO();
-      socketServices.socket.on('connect', () => {
-        console.log(
-          'socket connected ---- from auth slice',
-          socketServices.socket.connected,
-        );
-        socketServices.socket.emit('join_room', action.payload.data?._id);
-      });
-      socketServices.socket.on('chat_message', (msg: any) => {
-        console.log('msg----auth slice', msg);
-        if (msg?.status == 1 && msg?.senderId != action.payload.data?._id) {
-          console.log('received auth slice');
-          socketServices.socket.emit('chat_message', {...msg, status: 2});
-        }
-        store.dispatch(addMessageReceived(msg));
-      });
-    },
-    [signin.rejected]: (state: IAuthSlice) => {
-      state.isLoading = false;
-    },
-    [editProfile.pending]: (state: IAuthSlice) => {
-      state.isLoadingUpdate = true;
-    },
-    [editProfile.fulfilled]: (state: IAuthSlice, action) => {
-      console.log('update profile success', JSON.stringify(action.payload));
-      state.userData = {...state.userData, ...action.payload};
-      state.isLoadingUpdate = false;
-    },
-    [editProfile.rejected]: (state: IAuthSlice) => {
-      console.log('update profile failed');
-      state.isLoadingUpdate = false;
-    },
-    [signup.pending]: (state: IAuthSlice) => {
-      state.isLoading = true;
-    },
-    [signup.fulfilled]: (state: IAuthSlice, action) => {
-      console.log('registration success', JSON.stringify(action.payload.data));
-      state.credintials = action.payload.data;
-      state.isLoading = false;
-    },
-    [signup.rejected]: (state: IAuthSlice) => {
-      console.log('registration failed 2');
-      state.isLoading = false;
-    },
-    [verifyAccount.pending]: (state: IAuthSlice) => {
-      state.isLoadingCode = true;
-    },
-    [verifyAccount.fulfilled]: (state: IAuthSlice, action) => {
-      console.log('registration success', action.payload.data);
-      state.userData = action.payload.data;
-      state.isLoadingCode = false;
+        const socketServices = new SocketIO();
+        socketServices.socket.on('connect', () => {
+          console.log(
+            'socket connected ---- from auth slice',
+            socketServices.socket.connected,
+          );
+          socketServices.socket.emit('join_room', action.payload.data?._id);
+        });
+        socketServices.socket.on('chat_message', (msg: any) => {
+          console.log('msg----auth slice', msg);
+          if (msg?.status == 1 && msg?.senderId != action.payload.data?._id) {
+            console.log('received auth slice');
+            socketServices.socket.emit('chat_message', {...msg, status: 2});
+          }
+          store.dispatch(addMessageReceived(msg));
+        });
+      })
+      .addCase(signin.rejected, (state, action) => {
+        state.isLoading = false;
+      })
 
-      const socketServices = new SocketIO();
-      socketServices.socket.on('connect', () => {
+      .addCase(editProfile.pending, (state, action) => {
+        state.isLoadingUpdate = true;
+      })
+      .addCase(editProfile.fulfilled, (state, action) => {
+        console.log('update profile success', JSON.stringify(action.payload));
+        state.userData = {...state.userData, ...action.payload};
+        state.isLoadingUpdate = false;
+      })
+      .addCase(editProfile.rejected, (state, action) => {
+        state.isLoadingUpdate = false;
+      })
+      .addCase(signup.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(signup.fulfilled, (state, action) => {
         console.log(
-          'socket connected ---- auth slice',
-          socketServices.socket.connected,
+          'registration success',
+          JSON.stringify(action.payload.data),
         );
-        socketServices.socket.emit('join_room', action.payload.data?._id);
+        state.credintials = action.payload.data;
+        state.isLoading = false;
+      })
+      .addCase(signup.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+
+      .addCase(verifyAccount.pending, (state, action) => {
+        state.isLoadingCode = true;
+      })
+      .addCase(verifyAccount.fulfilled, (state, action) => {
+        console.log('registration success', action.payload.data);
+        state.userData = action.payload.data;
+        state.isLoadingCode = false;
+
+        const socketServices = new SocketIO();
+        socketServices.socket.on('connect', () => {
+          console.log(
+            'socket connected ---- auth slice',
+            socketServices.socket.connected,
+          );
+          socketServices.socket.emit('join_room', action.payload.data?._id);
+        });
+        socketServices.socket.on('chat_message', (msg: any) => {
+          console.log('msg---- auth slice', msg);
+          if (msg?.status == 1 && msg?.senderId != action.payload.data?._id) {
+            console.log('received auth slice');
+            socketServices.socket.emit('chat_message', {
+              ...msg,
+              status: 2,
+            });
+          }
+          store.dispatch(addMessageReceived(msg));
+        });
+      })
+      .addCase(verifyAccount.rejected, (state, action) => {
+        state.isLoadingCode = false;
       });
-      socketServices.socket.on('chat_message', (msg: any) => {
-        console.log('msg---- auth slice', msg);
-        if (msg?.status == 1 && msg?.senderId != action.payload.data?._id) {
-          console.log('received auth slice');
-          socketServices.socket.emit('chat_message', {
-            ...msg,
-            status: 2,
-          });
-        }
-        store.dispatch(addMessageReceived(msg));
-      });
-    },
-    [verifyAccount.rejected]: (state: IAuthSlice) => {
-      console.log('registration failed from verifyAccount.rejected');
-      state.isLoadingCode = false;
-    },
   },
 });
 

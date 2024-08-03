@@ -19,19 +19,20 @@ export const storeSlice = createSlice({
       state.storeSelected = action.payload;
     },
   },
-  extraReducers: {
-    [getStores.pending]: (state: IStoreSlice) => {
-      state.error = null;
-      state.isLoadingStores = true;
-    },
-    [getStores.fulfilled]: (state: IStoreSlice, action) => {
-      state.stores = action.payload;
-      state.isLoadingStores = false;
-    },
-    [getStores.rejected]: (state: IStoreSlice, action) => {
-      state.error = action.payload;
-      state.isLoadingStores = false;
-    },
+  extraReducers: builder => {
+    builder
+      .addCase(getStores.pending, (state, action) => {
+        state.error = null;
+        state.isLoadingStores = true;
+      })
+      .addCase(getStores.fulfilled, (state, action) => {
+        state.stores = action.payload;
+        state.isLoadingStores = false;
+      })
+      .addCase(getStores.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoadingStores = false;
+      });
   },
 });
 
